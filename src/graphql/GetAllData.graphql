@@ -1,0 +1,15 @@
+query GetAllData {
+  users {
+    data {
+      id
+      name
+      username
+      email
+      address {
+        street
+      }
+      phone
+      website
+    }
+  }
+}
