@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Checkbox, Input, Text } from "@chakra-ui/react";
 import Buttons from "./Buttons";
 import { debounce } from "ts-debounce";
+import { AddIcon } from "@chakra-ui/icons";
 
 type DataProps = {
   data: any[];
@@ -52,7 +53,7 @@ const Table = ({ data }: DataProps) => {
             onChange={debouncedChangeHandler}
             placeholder="Search..."
           />
-          <Buttons title="Add User" />
+          <Buttons title="Add User" icon={<AddIcon />} />
         </div>
       </div>
       <header>
