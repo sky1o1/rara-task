@@ -3,14 +3,17 @@ import { Checkbox, Input, Text } from "@chakra-ui/react";
 import Buttons from "./Buttons";
 import { debounce } from "ts-debounce";
 import { AddIcon } from "@chakra-ui/icons";
+import { IData } from "../lib/interface/IData";
+import { useRouter } from "next/router";
 
 type DataProps = {
-  data: any[];
+  data: IData[];
 };
 
 const Table = ({ data }: DataProps) => {
-  const [checked, setChecked] = useState(false);
-  const [newData, setNewData] = useState([]);
+  const router = useRouter();
+  const [checked, setChecked] = useState<boolean>(false);
+  const [newData, setNewData] = useState<IData[]>([]);
 
   const changeState = () => {
     setChecked(!checked);
@@ -23,7 +26,9 @@ const Table = ({ data }: DataProps) => {
   const debouncedChangeHandler = useCallback(debounce(handleInput, 300), []);
 
   useEffect(() => {
-    setNewData(data?.users?.data);
+    if (data) {
+      setNewData(data.users.data);
+    }
   }, [data]);
 
   const handleFilter = (inp: string) => {
@@ -53,7 +58,11 @@ const Table = ({ data }: DataProps) => {
             onChange={debouncedChangeHandler}
             placeholder="Search..."
           />
-          <Buttons title="Add User" icon={<AddIcon />} />
+          <Buttons
+            onClick={() => router.push("/addUser")}
+            title="Add User"
+            icon={<AddIcon />}
+          />
         </div>
       </div>
       <header>

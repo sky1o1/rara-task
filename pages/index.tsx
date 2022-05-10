@@ -1,15 +1,58 @@
+import { useMemo } from "react";
 import type { NextPage } from "next";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import Table from "../src/components/Table";
 import { useGetAllDataQuery, GetAllDataQuery } from "../src/generated/graphql";
 import { graphqlRequestClient } from "../src/lib/clients/graphqlRequestClient";
+import { format } from "date-fns";
+import CustomizedTable from "../src/components/CustomizedTable";
+import SortingTable from "../src/components/SortingTable";
+import FilteringTable from "../src/components/FilteringTable";
+import ColumnFilter from "../src/components/ColumnFilter";
+import PaginationTable from "../src/components/PaginationTable";
 
 const Home: NextPage = () => {
   const { data } = useGetAllDataQuery<GetAllDataQuery, Error>(
     graphqlRequestClient,
     {}
   );
+
+  const columns = useMemo(
+    () => [
+      {
+        Header: "ID",
+        Footer: "ID",
+        accessor: "id",
+        disableFilters: true,
+      },
+      {
+        Header: "Name",
+        Footer: "Name",
+        accessor: "name",
+      },
+      {
+        Header: "Username",
+        Footer: "Username",
+        accessor: "username",
+      },
+      {
+        Header: "Phone",
+        Footer: "Phone",
+        accessor: "phone",
+      },
+    ],
+    []
+  );
+
+  // {
+  //   Header: "DateOfBirth",
+  //   Footer: "DateOfBirth",
+  //   accessor: "DateOfBirth",
+  // Cell:({value}) => {
+  //   return format(newDate(value), 'dd/MM/yyyy')
+  // } )
+  // }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -18,7 +61,17 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Table data={data} />
+      {/* <Table data={data} /> */}
+      {/* {data && <CustomizedTable data={data?.users.data} columns={columns} />} */}
+
+      {/* sorting table */}
+      {/* {data && <SortingTable data={data?.users.data} columns={columns} />} */}
+
+      {/* global filter table */}
+      {/* {data && <FilteringTable data={data?.users.data} columns={columns} />} */}
+
+      {/* pagination table */}
+      {data && <PaginationTable data={data?.users.data} columns={columns} />}
     </div>
   );
 };
