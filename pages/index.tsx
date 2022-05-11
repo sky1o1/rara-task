@@ -10,6 +10,9 @@ import SortingTable from "../src/components/SortingTable";
 import FilteringTable from "../src/components/FilteringTable";
 import ColumnFilter from "../src/components/ColumnFilter";
 import PaginationTable from "../src/components/PaginationTable";
+import RowSelectionTable from "../src/components/RowSelectionTable";
+import ColumnOrderTable from "../src/components/ColumnOrderTable";
+import ColumnHidingTable from "../src/components/ColumnHidingTable";
 
 const Home: NextPage = () => {
   const { data } = useGetAllDataQuery<GetAllDataQuery, Error>(
@@ -71,7 +74,16 @@ const Home: NextPage = () => {
       {/* {data && <FilteringTable data={data?.users.data} columns={columns} />} */}
 
       {/* pagination table */}
-      {data && <PaginationTable data={data?.users.data} columns={columns} />}
+      {/* {data && <PaginationTable data={data?.users.data} columns={columns} />} */}
+
+      {/* row selection table */}
+      {/* {data && <RowSelectionTable data={data?.users.data} columns={columns} />} */}
+
+      {/* column order table */}
+      {/* {data && <ColumnOrderTable data={data?.users.data} columns={columns} />} */}
+
+      {/* column order table */}
+      {data && <ColumnHidingTable data={data?.users.data} columns={columns} />}
     </div>
   );
 };
